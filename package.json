@@ -1,0 +1,14 @@
+{
+    "name": "anime-task-tracker",
+    "version": "1.0.0",
+    "description": "Anime-inspired task tracker for Kioma and Takitsu",
+    "scripts": {
+      "start": "cd backend && npm start",
+      "install-deps": "cd backend && npm install",
+      "dev": "cd backend && npm run dev"
+    },
+    "author": "",
+    "license": "UNLICENSED",
+    "private": true
+  }
+  

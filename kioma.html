@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#121212">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Kioma's personal task tracker">
+    <title>Kioma's Tasks</title>
+    
+    <!-- PWA Support -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/tasks.css">
+    <link rel="stylesheet" href="assets/css/mobile.css">
+    <link rel="stylesheet" href="assets/css/notifications.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="user-page kioma-theme">
+    <div class="particles-container" id="particles-js"></div>
+    
+    <header>
+        <a href="index.html" class="back-button">
+            <span class="back-icon">←</span>
+            <span class="back-text">Home</span>
+        </a>
+        <div class="user-info">
+            <div class="user-avatar avatar-placeholder kioma-placeholder">K</div>
+            <h1 class="user-name">Kioma</h1>
+        </div>
+    </header>
+    
+    <main class="tasks-container">
+        <div class="streak-display">
+            <div class="streak-count">
+                <span class="streak-number" id="kioma-streak">0</span>
+                <span class="streak-label">Day Streak</span>
+            </div>
+            <div class="streak-progress-container">
+                <div class="streak-progress" id="kioma-progress"></div>
+            </div>
+            <div class="streak-message" id="kioma-message">Do your best!</div>
+        </div>
+        
+        <div class="timezone-selector" id="timezone-selector">
+            <h3>Select Your Timezone</h3>
+            <p class="timezone-note">Your tasks will reset at midnight in your local timezone</p>
+            <select id="country-select">
+                <option value="Asia/Kabul">Afghanistan (UTC+4:30)</option>
+                <option value="Asia/Tokyo">Japan (UTC+9)</option>
+                <option value="Asia/Shanghai">China (UTC+8)</option>
+                <option value="Asia/Kolkata">India (UTC+5:30)</option>
+                <option value="Asia/Seoul">South Korea (UTC+9)</option>
+                <option value="Asia/Bangkok">Thailand (UTC+7)</option>
+                <option value="Asia/Dubai">UAE (UTC+4)</option>
+                <option value="Asia/Tehran">Iran (UTC+3:30)</option>
+                <option value="Asia/Singapore">Singapore (UTC+8)</option>
+                <option value="Asia/Manila">Philippines (UTC+8)</option>
+                <option value="Asia/Jakarta">Indonesia (UTC+7)</option>
+                <option value="Asia/Karachi">Pakistan (UTC+5)</option>
+                <option value="America/New_York">USA Eastern (UTC-5)</option>
+                <option value="Europe/London">UK (UTC+0)</option>
+                <option value="Europe/Paris">France (UTC+1)</option>
+                <option value="Australia/Sydney">Australia (UTC+10)</option>
+                <option value="Pacific/Auckland">New Zealand (UTC+12)</option>
+            </select>
+            <button id="save-timezone">Save</button>
+        </div>
+        
+        <section class="tasks-list">
+            <h2 class="tasks-title">Today's Tasks <span class="japanese-subtitle">Daily Tasks</span></h2>
+            
+            <ul id="kioma-tasks">
+                <!-- Tasks are defined here - easy to edit -->
+                <li class="task-item">
+                    <label>
+                        <input type="checkbox" class="task-checkbox">
+                        <span class="task-text">Morning meditation for 10 minutes</span>
+                    </label>
+                </li>
+                <li class="task-item">
+                    <label>
+                        <input type="checkbox" class="task-checkbox">
+                        <span class="task-text">Study Japanese for 30 minutes</span>
+                    </label>
+                </li>
+                <li class="task-item">
+                    <label>
+                        <input type="checkbox" class="task-checkbox">
+                        <span class="task-text">Work on art project</span>
+                    </label>
+                </li>
+                <li class="task-item">
+                    <label>
+                        <input type="checkbox" class="task-checkbox">
+                        <span class="task-text">Read manga chapter</span>
+                    </label>
+                </li>
+                <li class="task-item">
+                    <label>
+                        <input type="checkbox" class="task-checkbox">
+                        <span class="task-text">Practice piano</span>
+                    </label>
+                </li>
+                <li class="task-item">
+                    <label>
+                        <input type="checkbox" class="task-checkbox">
+                        <span class="task-text">Write in journal</span>
+                    </label>
+                </li>
+            </ul>
+        </section>
+    </main>
+    
+    <div class="chibi-assistant" id="kioma-assistant">
+        <img src="assets/img/chibi-kioma.png" alt="Chibi Assistant" class="chibi-img">
+        <div class="chibi-speech-bubble hidden" id="kioma-speech">
+            <p id="kioma-speech-text">You're doing great!</p>
+        </div>
+    </div>
+    
+    <div class="streak-break-overlay" id="streak-break-overlay">
+        <div class="streak-break-content">
+            <img src="assets/img/broken-streak.png" alt="Broken Streak" class="broken-streak-img">
+            <h2 class="streak-break-title">Streak Broken!</h2>
+            <p class="streak-break-message">Don't worry, today is a new beginning!</p>
+            <button id="streak-break-close">Continue</button>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.1/build/global/luxon.min.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/tasks.js"></script>
+    <script src="assets/js/mobile.js"></script>
+    <script src="assets/js/notifications.js"></script>
+    <script>
+        // Initialize with user-specific data
+        document.addEventListener('DOMContentLoaded', () => {
+            initUserPage('kioma');
+            initMobileFeatures();
+            initNotifications();
+        });
+    </script>
+    
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>

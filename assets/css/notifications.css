@@ -1,0 +1,499 @@
+/* 
+ * Notification Styles for Anime Task Tracker 
+ * Handles styling for notifications, time pickers, and modals
+ */
+
+/* Notification Button */
+.notification-settings-button {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 2px solid var(--user-accent, #4fc3f7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.notification-settings-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.notification-icon {
+    font-size: 1.2rem;
+}
+
+/* Time Picker Button */
+.time-picker-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid var(--user-accent, #4fc3f7);
+    color: var(--user-accent, #4fc3f7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0.6;
+}
+
+.time-picker-button:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.task-item:hover .time-picker-button {
+    opacity: 0.8;
+}
+
+/* Task Highlighting */
+.highlight-task {
+    animation: highlight-pulse 1.5s ease-in-out;
+}
+
+@keyframes highlight-pulse {
+    0%, 100% {
+        background: rgba(255, 255, 255, 0.05);
+    }
+    50% {
+        background: var(--user-accent-transparent, rgba(79, 195, 247, 0.3));
+    }
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.modal.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: var(--bg-dark);
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--card-border);
+    animation: modal-in 0.3s ease-out;
+}
+
+@keyframes modal-in {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--card-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: var(--user-accent, #4fc3f7);
+    font-size: 1.5rem;
+}
+
+.close-button {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-button:hover {
+    color: var(--text-light);
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--card-border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+/* Time Picker Styles */
+.time-picker {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1.5rem 0;
+}
+
+.time-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.time-selector label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.time-selector select {
+    width: 70px;
+    height: 40px;
+    background: var(--bg-darker);
+    color: var(--text-light);
+    border: 1px solid var(--card-border);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.2rem;
+    appearance: none;
+    padding: 0 0.5rem;
+}
+
+.time-separator {
+    font-size: 2rem;
+    margin: 0 0.5rem;
+    color: var(--text-secondary);
+    padding-top: 1.5rem;
+}
+
+.date-selector, .repeat-selector {
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.date-selector label, .repeat-selector label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.date-selector input, .repeat-selector select {
+    height: 40px;
+    background: var(--bg-darker);
+    color: var(--text-light);
+    border: 1px solid var(--card-border);
+    border-radius: 5px;
+    padding: 0 0.5rem;
+    font-size: 1rem;
+}
+
+.task-description {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    border-left: 3px solid var(--user-accent, #4fc3f7);
+}
+
+/* Notification Settings Styles */
+.permission-section, .settings-section, .scheduled-section {
+    margin-bottom: 2rem;
+}
+
+.permission-section h3, .settings-section h3, .scheduled-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.permission-status {
+    margin-bottom: 1rem;
+}
+
+.enabled {
+    color: #4CAF50;
+}
+
+.disabled {
+    color: #F44336;
+}
+
+.setting-item {
+    margin-bottom: 1rem;
+}
+
+.setting-item label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--bg-darker);
+    transition: .4s;
+    border-radius: 34px;
+    border: 1px solid var(--card-border);
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 3px;
+    background-color: var(--text-secondary);
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: var(--user-accent, #4fc3f7);
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(30px);
+    background-color: white;
+}
+
+/* Scheduled Notifications List */
+.notifications-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notifications-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+}
+
+.notification-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-title {
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+    color: var(--text-light);
+}
+
+.notification-time {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.delete-notification {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0 0.5rem;
+}
+
+.delete-notification:hover {
+    color: #F44336;
+}
+
+.no-items {
+    color: var(--text-secondary);
+    font-style: italic;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Buttons */
+.primary-button, .secondary-button {
+    padding: 0.7rem 1.5rem;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    font-family: var(--font-main);
+}
+
+.primary-button {
+    background: var(--user-accent, #4fc3f7);
+    color: white;
+}
+
+.primary-button:hover {
+    background: var(--user-accent-bright, #81d4fa);
+    transform: translateY(-2px);
+}
+
+.secondary-button {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--text-secondary);
+}
+
+.secondary-button:hover {
+    color: var(--text-light);
+    border-color: var(--text-light);
+}
+
+/* Toast Notifications */
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 90%;
+    max-width: 400px;
+}
+
+.toast {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 5px;
+    background: var(--bg-dark);
+    border-left: 4px solid #4fc3f7;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    color: var(--text-light);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.success {
+    border-left-color: #4CAF50;
+}
+
+.toast.error {
+    border-left-color: #F44336;
+}
+
+.toast.info {
+    border-left-color: #4fc3f7;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+    .notification-settings-button {
+        top: 0.5rem;
+        right: 0.5rem;
+        width: 36px;
+        height: 36px;
+    }
+    
+    .modal-content {
+        width: 95%;
+    }
+    
+    .time-picker {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .time-separator {
+        padding-top: 0;
+    }
+}
+
+/* Accessibility Focus States */
+button:focus, select:focus, input:focus {
+    outline: 2px solid var(--user-accent, #4fc3f7);
+    outline-offset: 2px;
+}
+
+/* Color Variables for Theming */
+:root {
+    --user-accent-transparent: rgba(79, 195, 247, 0.3);
+    --user-accent-bright: #81d4fa;
+}
+
+.kioma-theme {
+    --user-accent-transparent: rgba(255, 107, 203, 0.3);
+    --user-accent-bright: #ff91d5;
+}
+
+/* Animation for task reminder coming due */
+@keyframes reminder-pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03);
+    }
+}
+
+.task-reminder-active {
+    animation: reminder-pulse 2s infinite;
+    border-left: 3px solid var(--user-accent, #4fc3f7);
+}

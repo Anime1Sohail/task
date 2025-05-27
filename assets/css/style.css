@@ -1,0 +1,751 @@
+/* Main Styles for Anime Task Tracker */
+:root {
+    /* Colors - Dark Theme */
+    --bg-dark: #121212;
+    --bg-darker: #0a0a0a;
+    --accent-kioma: #1ce655; /* Brighter green for Kioma to match blue intensity */
+    --accent-takitsu: #4fc3f7;
+    --text-light: #ffffff;
+    --text-secondary: #b3b3b3;
+    --card-bg: rgba(30, 30, 30, 0.7);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    
+    /* Theme-specific particle colors */
+    --particles-main: #ffffff;
+    --particles-kioma: rgba(28, 230, 85, 0.8); /* Brighter green particles for Kioma */
+    --particles-takitsu: rgba(79, 195, 247, 0.8); /* Blue particles for Takitsu */
+    
+    /* Fonts */
+    --font-main: 'Quicksand', sans-serif;
+    
+    /* Animations */
+    --transition-speed: 0.3s;
+    
+    /* Layout */
+    --card-spacing: 1.5rem;
+    --container-padding: 2rem;
+    --border-radius: 12px;
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Accessibility */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* Focus styles for keyboard navigation - only for keyboard users */
+:focus-visible {
+    outline: 3px solid var(--accent-kioma);
+    outline-offset: 2px;
+}
+
+/* Remove outline for mouse/touch interactions while preserving for keyboard */
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.kioma-card a:focus-visible, .kioma-card button:focus-visible {
+    outline-color: var(--accent-kioma);
+}
+
+.takitsu-card a:focus-visible, .takitsu-card button:focus-visible {
+    outline-color: var(--accent-takitsu);
+}
+
+/* Particles Background */
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none; /* Ensures clicks pass through to elements below */
+    will-change: transform; /* Performance optimization for animation */
+}
+
+/* Minimal Landing Page Design */
+.landing-page.minimal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 0 var(--container-padding);
+    contain: content; /* Improve rendering performance */
+}
+
+/* Minimalist Layout */
+.minimal {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Minimalist Header */
+.minimal-header {
+    padding: 0.75rem 1.5rem;
+    background: rgba(18, 18, 18, 0.4);
+}
+
+.app-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.app-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.app-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-light);
+    letter-spacing: 1px;
+}
+
+/* Home Container Styles */
+.home-container {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Welcome Section */
+.welcome-section {
+    margin-bottom: 2rem;
+    text-align: center;
+    padding: 1rem;
+}
+
+.welcome-title {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    margin-bottom: 0.8rem;
+    color: var(--text-light);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.welcome-text {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title-text {
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.title-accent {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    font-weight: 300;
+    letter-spacing: 4px;
+}
+
+.users-container {
+    display: flex;
+    justify-content: center;
+    gap: clamp(1.5rem, 5vw, 4rem);
+    flex-wrap: wrap;
+    width: 100%;
+    position: relative;
+    z-index: 3; /* Above the blurred background */
+    margin-bottom: 2.5rem;
+}
+
+/* User Cards for main page */
+.user-card {
+    position: relative;
+    width: clamp(220px, 20vw, 300px);
+    height: clamp(280px, 25vw, 360px);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    contain: layout style; /* Performance optimization */
+    backface-visibility: hidden; /* Smoother transitions */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.kioma-card {
+    border-top: 4px solid var(--accent-kioma);
+}
+
+.takitsu-card {
+    border-top: 4px solid var(--accent-takitsu);
+}
+
+.user-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.user-card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.user-card-front {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    position: relative;
+}
+
+.user-avatar {
+    width: clamp(100px, 10vw, 140px);
+    height: clamp(100px, 10vw, 140px);
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    will-change: transform; /* Performance hint for animations */
+}
+
+.kioma-card:hover .user-avatar {
+    border-color: var(--accent-kioma);
+    box-shadow: 0 0 20px var(--accent-kioma);
+}
+
+.takitsu-card:hover .user-avatar {
+    border-color: var(--accent-takitsu);
+    box-shadow: 0 0 20px var(--accent-takitsu);
+}
+
+.user-info {
+    text-align: center;
+    z-index: 2;
+}
+
+.user-name {
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.kioma-card:hover .user-name {
+    color: var(--accent-kioma);
+}
+
+.takitsu-card:hover .user-name {
+    color: var(--accent-takitsu);
+}
+
+.user-subtitle {
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    color: var(--text-secondary);
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.card-hover-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    z-index: 1;
+}
+
+.kioma-effect {
+    background: radial-gradient(circle at center, rgba(28, 230, 85, 0.15) 0%, transparent 70%);
+}
+
+.takitsu-effect {
+    background: radial-gradient(circle at center, rgba(79, 195, 247, 0.15) 0%, transparent 70%);
+}
+
+.user-card:hover .card-hover-effect {
+    opacity: 1;
+}
+
+/* App Features Section */
+.app-features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(1rem, 3vw, 2rem);
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    background: rgba(30, 30, 30, 0.4);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    padding: clamp(0.8rem, 2vw, 1.2rem) clamp(1.2rem, 3vw, 2rem);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    flex: 1 1 calc(33.333% - 2rem);
+    min-width: 180px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.feature-icon {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    margin-right: 1rem;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(36px, 5vw, 48px);
+    height: clamp(36px, 5vw, 48px);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.feature-text {
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+/* Minimalist Container */
+.minimal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    padding: 1rem;
+    text-align: center;
+}
+
+.minimal-container:before {
+    content: 'Task Mission';
+    position: absolute;
+    top: -60px;
+    font-size: min(8vw, 2.5rem);
+    font-weight: 700;
+    color: var(--text-light);
+    opacity: 0.9;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Minimalist User Container */
+.minimal-users-container {
+    display: flex;
+    justify-content: center;
+    gap: min(8vw, 3rem);
+    margin: 1rem auto;
+    position: relative;
+    z-index: 5;
+}
+
+/* Minimalist Cards */
+.minimal-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    margin: var(--card-spacing);
+    width: 250px;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    text-decoration: none;
+    color: var(--text-light);
+    contain: layout style; /* Performance optimization */
+    backface-visibility: hidden; /* Smoother transitions */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.minimal-card.kioma-card {
+    border-left: 3px solid var(--accent-kioma);
+}
+
+.minimal-card.takitsu-card {
+    border-left: 3px solid var(--accent-takitsu);
+}
+
+.card-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.kioma-card .card-glow {
+    background: radial-gradient(circle at center, rgba(28, 230, 85, 0.2) 0%, transparent 70%);
+}
+
+.takitsu-card .card-glow {
+    background: radial-gradient(circle at center, rgba(79, 195, 247, 0.2) 0%, transparent 70%);
+}
+
+.minimal-card:hover .card-glow {
+    opacity: 1;
+}
+
+.minimal-card:hover, .minimal-card.hover-active {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Additional visual feedback for active hover state */
+.minimal-card.hover-active {
+    animation: pulse 0.3s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-10px) scale(1.05); }
+    100% { transform: translateY(-8px) scale(1.03); }
+}
+
+.minimal-avatar {
+    width: min(22vw, 100px);
+    height: min(22vw, 100px);
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: min(4vw, 1.2rem);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+    will-change: transform; /* Performance hint for animations */
+}
+
+/* Avatar placeholders for when images are missing */
+.avatar-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: min(10vw, 3rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.7) 0%, rgba(50, 50, 50, 0.7) 100%);
+    color: var(--text-light);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.kioma-placeholder {
+    background: linear-gradient(135deg, rgba(10, 50, 20, 0.7) 0%, rgba(20, 100, 40, 0.7) 100%);
+    border: 2px solid rgba(28, 230, 85, 0.3);
+}
+
+.takitsu-placeholder {
+    background: linear-gradient(135deg, rgba(10, 30, 50, 0.7) 0%, rgba(20, 60, 100, 0.7) 100%);
+    border: 2px solid rgba(79, 195, 247, 0.3);
+}
+
+.minimal-name {
+    font-size: min(4vw, 1.1rem);
+    font-weight: 600;
+    color: var(--text-light);
+    text-align: center;
+    white-space: nowrap;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 0.5rem;
+}
+
+.kioma-card:hover .minimal-avatar {
+    border-color: var(--accent-kioma);
+    box-shadow: 0 0 20px var(--accent-kioma);
+}
+
+.takitsu-card:hover .minimal-avatar {
+    border-color: var(--accent-takitsu);
+    box-shadow: 0 0 20px var(--accent-takitsu);
+}
+
+.kioma-card:hover .minimal-name {
+    color: var(--accent-kioma);
+}
+
+.takitsu-card:hover .minimal-name {
+    color: var(--accent-takitsu);
+}
+
+/* Minimal Streak Counter */
+.minimal-streak {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 0.2rem 0.6rem;
+    margin-top: 0.2rem;
+    z-index: 2;
+    font-size: min(3.2vw, 0.9rem);
+    transition: all 0.3s ease;
+}
+
+.kioma-card .minimal-streak {
+    border: 1px solid rgba(28, 230, 85, 0.2);
+}
+
+.takitsu-card .minimal-streak {
+    border: 1px solid rgba(79, 195, 247, 0.2);
+}
+
+.minimal-card:hover .minimal-streak {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.kioma-card:hover .minimal-streak {
+    border-color: rgba(28, 230, 85, 0.4);
+}
+
+.takitsu-card:hover .minimal-streak {
+    border-color: rgba(79, 195, 247, 0.4);
+}
+
+.streak-flame {
+    margin-right: 0.3rem;
+    font-size: min(3.5vw, 1rem);
+}
+
+.streak-count {
+    font-weight: 600;
+}
+
+.active-streak {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.kioma-card .active-streak {
+    border-color: rgba(28, 230, 85, 0.5);
+    box-shadow: 0 0 10px rgba(28, 230, 85, 0.2);
+}
+
+.takitsu-card .active-streak {
+    border-color: rgba(79, 195, 247, 0.5);
+    box-shadow: 0 0 10px rgba(79, 195, 247, 0.2);
+}
+
+/* Minimalist Footer */
+.minimal-footer {
+    padding: 0.5rem;
+    width: 100%;
+    text-align: center;
+    background: transparent;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.footer-text {
+    font-size: min(3vw, 0.9rem);
+    color: var(--text-secondary);
+    font-weight: 400;
+    text-align: center;
+    margin: 0;
+}
+
+/* User Page Common Styles */
+.user-page {
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.kioma-theme {
+    --user-accent: var(--accent-kioma);
+}
+
+.takitsu-theme {
+    --user-accent: var(--accent-takitsu);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+    font-size: 1rem;
+}
+
+.back-button:hover {
+    color: var(--user-accent);
+}
+
+.back-icon {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.user-info .minimal-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+    border: 3px solid transparent;
+    transition: transform var(--transition-speed), border-color var(--transition-speed);
+    object-fit: cover; /* Ensure avatar images display properly */
+    will-change: transform; /* Performance hint for animations */
+}
+
+/* Avatar placeholders for when images are missing */
+.avatar-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.7) 0%, rgba(50, 50, 50, 0.7) 100%);
+    color: var(--text-light);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.kioma-placeholder {
+    background: linear-gradient(135deg, rgba(10, 50, 20, 0.7) 0%, rgba(20, 100, 40, 0.7) 100%);
+    border: 3px solid rgba(28, 230, 85, 0.3);
+}
+
+.takitsu-placeholder {
+    background: linear-gradient(135deg, rgba(10, 30, 50, 0.7) 0%, rgba(20, 60, 100, 0.7) 100%);
+    border: 3px solid rgba(79, 195, 247, 0.3);
+}
+
+.user-info .user-name {
+    font-size: 2rem;
+    color: var(--user-accent);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .users-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .title {
+        font-size: 2.5rem;
+    }
+    
+    .user-button {
+        width: 180px;
+        height: 220px;
+    }
+}
+
+/* Console Easter Egg */
+console {
+    display: none;
+}
+
+/* Console Easter Egg - added in JavaScript instead */

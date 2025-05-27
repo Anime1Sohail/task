@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#121212">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Minimalist task tracker for Kioma and Takitsu - track your daily tasks and build consistent streaks">
+    <title>Task Mission</title>
+    
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="assets/img/placeholders/avatar-default.svg" as="image" fetchpriority="high">
+    
+    <!-- PWA Support -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/tasks.css">
+    <link rel="stylesheet" href="assets/css/mobile.css">
+    <link rel="stylesheet" href="assets/css/notifications.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="landing-page minimal">
+    <div class="particles-container" id="particles-js" aria-hidden="true"></div>
+    
+    <main class="minimal-container">
+        <h1 class="visually-hidden">Task Mission - Choose Your Profile</h1>
+        <div class="minimal-users-container">
+            <a href="kioma.html" class="minimal-card kioma-card" aria-label="Kioma's tasks">
+                <div class="card-glow" aria-hidden="true"></div>
+                <div class="minimal-avatar avatar-placeholder kioma-placeholder">K</div>
+                <span class="minimal-name">Kioma</span>
+                <div class="minimal-streak" id="kioma-home-streak">
+                    <span class="streak-flame" aria-hidden="true">🔥</span>
+                    <span class="streak-count" aria-label="Streak count">0</span>
+                </div>
+            </a>
+            
+            <a href="takitsu.html" class="minimal-card takitsu-card" aria-label="Takitsu's tasks">
+                <div class="card-glow" aria-hidden="true"></div>
+                <div class="minimal-avatar avatar-placeholder takitsu-placeholder">T</div>
+                <span class="minimal-name">Takitsu</span>
+                <div class="minimal-streak" id="takitsu-home-streak">
+                    <span class="streak-flame" aria-hidden="true">🔥</span>
+                    <span class="streak-count" aria-label="Streak count">0</span>
+                </div>
+            </a>
+        </div>
+    </main>
+    
+    <footer class="minimal-footer">
+        <p class="footer-text">Our journey continues</p>
+        <p class="version-info visually-hidden">App version 2.1.0</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.1/build/global/luxon.min.js" defer></script>
+    <script src="assets/js/animations.js" defer></script>
+    <script src="assets/js/main.js" defer></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered successfully:', registration.scope);
+                        
+                        // Request notification permission if not already granted
+                        if ('Notification' in window) {
+                            if (Notification.permission !== 'granted' && Notification.permission !== 'denied') {
+                                // Wait a moment to not overwhelm the user on first load
+                                setTimeout(() => {
+                                    Notification.requestPermission();
+                                }, 5000);
+                            }
+                        }
+                        
+                        // Register for periodic sync if supported
+                        if ('periodicSync' in registration) {
+                            const registerPeriodicSync = async () => {
+                                try {
+                                    await registration.periodicSync.register('daily-reminder', {
+                                        minInterval: 24 * 60 * 60 * 1000 // Once per day
+                                    });
+                                    console.log('Periodic sync registered');
+                                } catch (error) {
+                                    console.error('Periodic sync registration failed:', error);
+                                }
+                            };
+                            registerPeriodicSync();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+# Media Assets Guide for Task Mission
+
+This guide outlines where to place the required images and sound effects for the application, including their purpose and naming conventions.
+
+## Images
+
+### User Avatars
+Location: `/assets/img/`
+Files:
+- `kioma-avatar.png` - Main avatar for Kioma user (recommended size: 200x200px, with transparent background)
+- `takitsu-avatar.png` - Main avatar for Takitsu user (recommended size: 200x200px, with transparent background)
+
+### App Logo
+Location: `/assets/img/`
+Files:
+- `app-logo.png` - Main logo for the app header (recommended size: 64x64px, with transparent background)
+
+### Chibi Characters
+Location: `/assets/img/`
+Files:
+- `chibi-kioma.png` - Cute chibi version of Kioma for motivation assistant (recommended size: 150x150px)
+- `chibi-takitsu.png` - Cute chibi version of Takitsu for motivation assistant (recommended size: 150x150px)
+
+### UI Elements
+Location: `/assets/img/`
+Files:
+- `broken-streak.png` - Image shown when a streak is broken (recommended size: 300x200px)
+- `glass-bg.png` - Subtle texture for glass-morphism effect (tileable, 100x100px)
+
+### Feature Icons
+Location: `/assets/img/icons/features/`
+Files:
+- `streak.svg` - Icon for streak feature (24x24px)
+- `tasks.svg` - Icon for task tracking feature (24x24px)
+- `sync.svg` - Icon for cross-platform sync feature (24x24px)
+- `notification.svg` - Icon for notification feature (24x24px)
+- `offline.svg` - Icon for offline functionality (24x24px)
+- `customize.svg` - Icon for customization options (24x24px)
+
+### App Icons
+Location: `/assets/img/`
+Files:
+- `icon-192.png` - App icon for medium-sized displays (192x192px)
+- `icon-512.png` - App icon for larger displays (512x512px)
+- `apple-touch-icon.png` - Icon for iOS devices (180x180px)
+
+### Screenshots
+Location: `/assets/img/screenshots/`
+Files:
+- `desktop.png` - Screenshot of desktop version for README and manifest (1280x800px)
+- `tablet.png` - Screenshot of tablet version for manifest (800x1200px)
+- `mobile.png` - Screenshot of mobile version for manifest (390x844px)
+
+Location: `/assets/img/icons/`
+Files:
+- Various icon sizes for different platforms
+- `favicon.ico` - Website favicon
+
+## Sound Effects
+
+Location: `/assets/audio/`
+
+### UI Sounds
+Files:
+- `hover.mp3` - Soft sound when hovering over buttons (short, 0.5s)
+- `click.mp3` - Button click sound (short, 0.3s)
+- `check.mp3` - Sound when checking off a task (satisfying tick sound, 0.5s)
+- `complete.mp3` - Celebration sound when all tasks are completed (cheerful, 1-2s)
+- `break.mp3` - Alert sound when a streak is broken (gentle notification, 1s)
+- `pop.mp3` - Small pop sound for UI interactions (very short, 0.2s)
+- `notification.mp3` - Sound for mobile notifications (attention-grabbing but not jarring, 1s)
+
+## Particle Effects Configuration
+
+The application uses customized particle effects for each user's theme. These are configured in `animations.js` with the following parameters:
+
+### Kioma's Particles
+- Color: Bright green (#1ce655)
+- Count: Varies by device (40 for mobile, 80 for tablet, 120 for desktop)
+- Size: 3-5px
+- Movement: Slow drift with gentle sway
+
+### Takitsu's Particles
+- Color: Vibrant blue (#4fc3f7)
+- Count: Varies by device (40 for mobile, 80 for tablet, 120 for desktop)
+- Size: 3-5px
+- Movement: Slow drift with gentle sway
+
+## Design Notes
+
+1. Images should be in PNG format with transparency where appropriate (SVG preferred for icons)
+2. Avatars and chibis should have a consistent anime-inspired style
+3. All audio files should be in MP3 format, optimized for web (128kbps is sufficient)
+4. Keep file sizes small for optimal performance (use compression tools)
+5. All images should have @2x versions for high-DPI displays (append @2x to filename)
+6. Particle effects should be performance-optimized especially for mobile devices
+
+## Recommended Tools
+
+- For image optimization: TinyPNG (https://tinypng.com/)
+- For audio optimization: MP3Smaller (https://www.mp3smaller.com/)
+- For creating icons from your logo: RealFaviconGenerator (https://realfavicongenerator.net/)
+
+## Installation Instructions
+
+1. Place all image files in their respective directories
+2. Ensure file names match exactly as specified above
+3. After adding media files, clear your browser cache and reload the application
+4. Test on both desktop and mobile devices to ensure proper loading
