@@ -30,6 +30,37 @@ a, button {
 
 /* Responsive design with a mobile-first approach */
 
+/* Landing Page Mobile Optimizations */
+@media (max-width: 480px) and (orientation: portrait) {
+    .minimal-container {
+        padding-top: 0.5rem;
+    }
+    
+    .minimal-card {
+        max-width: 85%;
+        aspect-ratio: 1/1.1; /* Make cards slightly less tall on mobile */
+        margin-bottom: 1rem;
+        transition: transform 0.15s ease-out, background-color 0.15s ease-out;
+    }
+    
+    .minimal-avatar {
+        margin-bottom: 0.8rem;
+    }
+    
+    .minimal-name {
+        margin-bottom: 0.8rem;
+    }
+    
+    .minimal-streak {
+        margin-top: 0.5rem;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
 /* Small Phones (up to 480px) */
 @media (max-width: 480px) {
     /* General adjustments */

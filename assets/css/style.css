@@ -111,16 +111,140 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* Changed to start from top */
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    overflow-x: hidden;
+}
+
+/* Minimal Container Styles */
+.minimal-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+    animation: fadeInUp 0.6s ease-out forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Minimalist Header */
 .minimal-header {
-    padding: 0.75rem 1.5rem;
-    background: rgba(18, 18, 18, 0.4);
+    width: 100%;
+    padding: 1.2rem 1rem;
+    background: rgba(18, 18, 18, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* App title container */
+.app-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* Logo icon styling */
+.logo-icon {
+    font-size: 1.5rem;
+    animation: flame-pulse 2s infinite alternate;
+    display: inline-block;
+    margin-bottom: 0.3rem;
+}
+
+@keyframes flame-pulse {
+    0% { transform: scale(1); text-shadow: 0 0 5px rgba(255, 165, 0, 0.5); }
+    100% { transform: scale(1.1); text-shadow: 0 0 15px rgba(255, 165, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.4); }
+}
+
+/* App title styling */
+.app-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-light);
+    letter-spacing: 1.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Welcome message styling */
+.welcome-message {
+    margin: 1.5rem 0 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 5;
+}
+
+/* Footer styling */
+.minimal-footer {
+    width: 100%;
+    padding: 1.2rem 1rem;
+    margin-top: auto;
+    background-color: rgba(12, 12, 12, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 10;
+    position: relative;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.footer-text {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0;
+    font-weight: 500;
+}
+
+.app-version {
+    display: flex;
+    align-items: center;
+}
+
+.version-tag {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    opacity: 0.7;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 0.2rem 0.5rem;
+    border-radius: 20px;
+}
+
+.welcome-title {
+    font-size: 1.4rem;
+    color: var(--text-light);
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.welcome-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0;
+    font-weight: 400;
+    opacity: 0.8;
 }
 
 .app-info {
@@ -397,26 +521,26 @@ body {
     text-align: center;
 }
 
-.minimal-container:before {
-    content: 'Task Mission';
-    position: absolute;
-    top: -60px;
-    font-size: min(8vw, 2.5rem);
-    font-weight: 700;
-    color: var(--text-light);
-    opacity: 0.9;
-    letter-spacing: 2px;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
 /* Minimalist User Container */
 .minimal-users-container {
     display: flex;
+    flex-direction: column; /* Default to column for mobile */
     justify-content: center;
-    gap: min(8vw, 3rem);
+    align-items: center;
+    gap: 1.5rem;
     margin: 1rem auto;
+    width: 90%;
+    max-width: 600px;
     position: relative;
     z-index: 5;
+}
+
+/* Adjust to row layout on larger screens */
+@media (min-width: 640px) {
+    .minimal-users-container {
+        flex-direction: row;
+        gap: min(6vw, 2.5rem);
+    }
 }
 
 /* Minimalist Cards */
@@ -427,27 +551,35 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem;
-    margin: var(--card-spacing);
-    width: 250px;
-    height: 300px;
+    padding: 1.8rem 1.5rem;
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 3/4; /* Maintain consistent proportions */
     position: relative;
     overflow: hidden;
-    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
     text-decoration: none;
     color: var(--text-light);
     contain: layout style; /* Performance optimization */
     backface-visibility: hidden; /* Smoother transitions */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-touch-callout: none; /* Prevent callout to copy image */
+    touch-action: manipulation; /* Optimize for touch */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    background-image: linear-gradient(to bottom, rgba(50, 50, 50, 0.3), rgba(25, 25, 25, 0.3));
 }
 
 .minimal-card.kioma-card {
-    border-left: 3px solid var(--accent-kioma);
+    border: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 0 0 2px rgba(28, 230, 85, 0.15);
+    background-image: linear-gradient(to bottom, rgba(28, 230, 85, 0.08), rgba(0, 30, 0, 0.2));
 }
 
 .minimal-card.takitsu-card {
-    border-left: 3px solid var(--accent-takitsu);
+    border: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 0 0 2px rgba(79, 195, 247, 0.15);
+    background-image: linear-gradient(to bottom, rgba(79, 195, 247, 0.08), rgba(0, 20, 40, 0.2));
 }
 
 .card-glow {
@@ -474,9 +606,19 @@ body {
     opacity: 1;
 }
 
-.minimal-card:hover, .minimal-card.hover-active {
-    transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+/* Desktop hover effects */
+@media (hover: hover) {
+    .minimal-card:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+    }
+}
+
+/* Mobile touch feedback */
+.minimal-card:active {
+    transform: scale(0.97);
+    background-color: rgba(40, 40, 40, 0.8);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Additional visual feedback for active hover state */
@@ -486,19 +628,26 @@ body {
 
 @keyframes pulse {
     0% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-10px) scale(1.05); }
-    100% { transform: translateY(-8px) scale(1.03); }
+    50% { transform: translateY(-5px) scale(1.03); }
+    100% { transform: translateY(-3px) scale(1.01); }
 }
 
 .minimal-avatar {
-    width: min(22vw, 100px);
-    height: min(22vw, 100px);
+    width: 90px; /* Slightly larger for better visibility */
+    height: 90px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: min(4vw, 1.2rem);
-    border: 2px solid rgba(255, 255, 255, 0.15);
+    margin-bottom: 1.2rem;
+    border: 3px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem; /* Larger font for better visibility */
+    background-position: center;
+    background-size: cover;
+    transform: translateZ(0); /* Force GPU rendering */
     position: relative;
     z-index: 2;
     will-change: transform; /* Performance hint for animations */
@@ -527,14 +676,14 @@ body {
 }
 
 .minimal-name {
-    font-size: min(4vw, 1.1rem);
-    font-weight: 600;
-    color: var(--text-light);
-    text-align: center;
-    white-space: nowrap;
-    position: relative;
-    z-index: 2;
-    margin-bottom: 0.5rem;
+font-size: 1.8rem;
+font-weight: 600;
+margin-bottom: 1rem;
+transition: all 0.3s ease;
+letter-spacing: 1px;
+position: relative;
+z-index: 2;
+text-align: center;
 }
 
 .kioma-card:hover .minimal-avatar {
@@ -560,13 +709,21 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 12px;
-    padding: 0.2rem 0.6rem;
-    margin-top: 0.2rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 0.7rem 1.2rem;
+    border-radius: 30px;
+    margin-top: 1.2rem;
     z-index: 2;
-    font-size: min(3.2vw, 0.9rem);
+    font-size: 1.1rem;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .kioma-card .minimal-streak {
@@ -590,12 +747,24 @@ body {
 }
 
 .streak-flame {
-    margin-right: 0.3rem;
-    font-size: min(3.5vw, 1rem);
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+    display: inline-block;
+    animation: flicker 2s infinite alternate;
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    25% { opacity: 0.95; transform: scale(0.98); }
+    50% { opacity: 1; transform: scale(1.05); }
+    75% { opacity: 0.9; transform: scale(0.96); }
 }
 
 .streak-count {
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .active-streak {
